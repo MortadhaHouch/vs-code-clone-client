@@ -19,7 +19,7 @@ export default function Web(props) {
         }
     })
     return (
-        <group scale={.5} ref={groupRef} {...props} dispose={null} rotateX={30} rotateZ={30}>
+        <group scale={.4} ref={groupRef} {...props} dispose={null} rotateX={30} rotateZ={30}>
         <group scale={0.01}>
             <group position={[119.344, 0, 281.843]} rotation={[-Math.PI / 2, 0, 1.29]} scale={100}>
             <mesh

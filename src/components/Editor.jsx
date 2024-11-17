@@ -1,18 +1,13 @@
 /* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import editorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker';
-import jsonWorker from 'monaco-editor/esm/vs/language/json/json.worker?worker';
-import cssWorker from 'monaco-editor/esm/vs/language/css/css.worker?worker';
-import htmlWorker from 'monaco-editor/esm/vs/language/html/html.worker?worker';
-import tsWorker from 'monaco-editor/esm/vs/language/typescript/ts.worker?worker';
 import Editor, { DiffEditor, useMonaco, loader } from '@monaco-editor/react';
 import {emmetCSS,emmetHTML,expandAbbreviation} from "emmet-monaco-es"
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { FaHtml5,FaCss3,FaPython } from "react-icons/fa";
 import { IoLogoJavascript } from "react-icons/io5";
 import { DarkThemeContext } from './providers/DarkThemeProvider';
-function CodeEditor(props,ref) {
+function CodeEditor(props) {
     const disposeEmmetHTMLRef = useRef();
     const disposeEmmetCSSRef = useRef();
     let themeContext = useContext(DarkThemeContext);
@@ -47,8 +42,11 @@ function CodeEditor(props,ref) {
         };
     }, []);
     return (
-        <div
-            className="w-100 h-100 d-flex flex-column justify-content-center align-items-center"
+        <main
+            className="w-100 min-vh-100 d-flex flex-column justify-content-center align-items-center pt-5"
+            style={{
+                backgroundColor:themeContext.isDark || JSON.parse(localStorage.getItem("isDark"))?"#03346E":"#F8EDED"
+            }}
         >
             <p
                 className={themeContext.isDark || JSON.parse(localStorage.getItem("isDark"))?"text-light":"text-dark"}
@@ -86,7 +84,7 @@ function CodeEditor(props,ref) {
                     }
                 }}
             />
-        </div>
+        </main>
     );
 }
 export default React.forwardRef(CodeEditor);

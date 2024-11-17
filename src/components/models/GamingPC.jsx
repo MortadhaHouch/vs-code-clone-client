@@ -21,7 +21,7 @@ export default function GamingPC(props) {
     })
     const { nodes, materials } = useGLTF("../../assets/3d/gaming_desktop_pc.glb")
     return (
-        <group scale={.75} ref={groupRef} {...props} dispose={null} rotateX={30} rotateZ={30}>
+        <group scale={.5} ref={groupRef} {...props} dispose={null} rotateX={30} rotateZ={30}>
         <group scale={0.005}>
             <mesh
             castShadow

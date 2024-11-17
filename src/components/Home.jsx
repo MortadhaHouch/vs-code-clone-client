@@ -1,13 +1,18 @@
 /* eslint-disable react/no-unknown-property */
 import { Canvas } from "@react-three/fiber";
-import GamingPC from "./models/GamingPC";
-import PYTHON from "./models/PYTHON"
-import WorkStation from "./models/WorkStation"
 import { Suspense, useContext, useEffect, useRef } from "react";
 import { OrbitControls } from "@react-three/drei";
 import { gsapAnimation } from "../../utils/animations";
 import { DarkThemeContext } from "./providers/DarkThemeProvider";
 import Web from "./models/Web";
+import {NavLink} from "react-router-dom";
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+import { images } from "../../utils/images";
 export default function Home() {
     let themeContext = useContext(DarkThemeContext);
     let textRef = useRef();
@@ -40,45 +45,23 @@ export default function Home() {
             <section 
                 className="w-100 d-flex flex-row justify-content-center align-items-center flex-wrap"
                 style={{
-                    height:"100vh",
+                    minHeight:"100vh",
                     backdropFilter:"blur(10px)",
                 }}>
                 <div 
-                    className="d-flex flex-column justify-content-center align-items-center p-4 home">
-                    <h1>Home</h1>
-                    <p ref={textRef}>Welcome to IDEasy, an innovative web application designed to provide developers with a seamless, efficient, and user-friendly Integrated Development Environment (IDE). IDEasy combines powerful coding tools, intuitive interfaces, and collaborative features to enhance the productivity and creativity of developers at all levels. Whether you&apos;re a beginner learning the ropes or an experienced professional looking for a versatile and customizable environment, IDEasy offers the perfect platform to write, test, and deploy your code with ease. Explore our advanced debugging tools, real-time collaboration capabilities, and extensive language support to take your development experience to the next level.</p>
+                    className="d-flex flex-column justify-content-center align-items-center p-4 home" 
+                    style={{
+                        width: "clamp(300px,40%,450px)",
+                    }}>
+                    <h2>Home</h2>
+                    <p ref={textRef}>Welcome to IDEasy, an innovative web application designed to provide developers with a seamless, efficient, and user-friendly Integrated Development Environment (IDE).</p>
+                    <button className="btn btn-primary">
+                        <NavLink to="/editor" className="nav-link">try it</NavLink>
+                    </button>
                 </div>
                 <div 
                     style={{
-                        width: "50vw",
-                        height: "100%",
-                    }}>
-                    <Canvas 
-                        style={{
-                        width: "100%",
-                        height: "100%",
-                    }}>
-                        <Suspense fallback={"loading..."}></Suspense>
-                        <OrbitControls enableZoom={false}/>
-                        <ambientLight intensity={1.5}/>
-                        <GamingPC/>
-                    </Canvas>
-                </div>
-            </section>
-            <section
-                className="w-100 d-flex flex-row justify-content-center align-items-center flex-wrap"
-                style={{
-                    height:"100vh",
-                    backdropFilter:"blur(10px)",
-                }}
-            >
-                <div className="d-flex flex-column justify-content-center align-items-center p-4 home">
-                    <h1>Web integration</h1>
-                    <p>a cutting-edge web application designed to streamline and enhance the web development process. WebSync offers seamless integration with various development tools and platforms, providing developers with a unified workspace to code, collaborate, and deploy their projects efficiently. With intuitive interfaces, real-time collaboration features, and robust support for multiple programming languages, WebSync empowers developers to build and maintain high-quality web applications with ease. Whether you&apos;re working on a personal project or part of a large development team, WebSync is your go-to solution for a smooth and productive web development experience.</p>
-                </div>
-                <div
-                    style={{
-                        width: "50vw",
+                        width: "clamp(350px,40%,50%)",
                         height: "100%",
                     }}>
                     <Canvas
@@ -99,53 +82,403 @@ export default function Home() {
             <section
                 className="w-100 d-flex flex-row justify-content-center align-items-center flex-wrap"
                 style={{
-                    height:"100vh",
+                    minHeight:"100vh",
                     backdropFilter:"blur(10px)",
                 }}
             >
+                <div className="d-flex flex-column justify-content-center align-items-center p-4 home" 
+                style={{
+                        width: "clamp(300px,40%,450px)",
+                    }}>
+                    <h2>React, Vue, Angular, and Svelte</h2>
+                    <p>IDEasy includes built-in templates for popular frontend frameworks like React, Vue, Angular, and Svelte. These frameworks allow developers to build modern, component-based user interfaces, and Sandpack enables live previews of code changes, perfect for rapid prototyping and interactive demos.</p>
+                </div>
                 <div
                     style={{
-                        width: "50vw",
+                        width: "clamp(300px,40%,450px)",
                         height: "100%",
                     }}>
-                    <Canvas
-                        style={{
-                            width: "100%",
-                            height: "100%",
-                            cursor:"grabbing"
+                    <Swiper
+                        spaceBetween={30}
+                        centeredSlides={true}
+                        autoplay={{
+                            delay: 2500,
+                            disableOnInteraction: false,
                         }}
+                        pagination={{
+                            clickable: true,
+                        }}
+                        navigation={true}
+                        modules={[Autoplay, Pagination, Navigation]}
+                        className="mySwiper"
                     >
-                        <Suspense fallback={"loading..."}></Suspense>
-                        <OrbitControls enableZoom={false}/>
-                        <ambientLight intensity={1.5}/>
-                        <PYTHON/>
-                    </Canvas>
+                        {images.frontend.map((img,index)=>{
+                            return (
+                                <SwiperSlide key={index} className="d-flex flex-column justify-content-center align-items-center">
+                                    <img src={img} alt="Frontend" style={{"width":"300px","height":"300px",mixBlendMode:"color-burn",aspectRatio:1/1,objectFit:"cover"}}/>
+                                </SwiperSlide>
+                            )
+                        })}
+                    </Swiper>
                 </div>
             </section>
             <section
                 className="w-100 d-flex flex-row justify-content-center align-items-center flex-wrap"
                 style={{
-                    height:"100vh",
+                    minHeight:"100vh",
                     backdropFilter:"blur(10px)",
                 }}
             >
-                <div
+                <div    
+                    className="d-flex flex-column justify-content-center align-items-center p-4 home" 
                     style={{
-                        width: "50vw",
+                        width: "clamp(300px,40%,450px)",
+                    }}>
+                    <h2>Node.js, Express, and Deno</h2>
+                    <p>IDEasy enables backend developers to use Node.js, Express, and Deno for building server-side logic directly in the browser. Developers can create full-stack applications, manage APIs, and simulate microservices architecture without leaving the development environment. This feature makes it highly convenient for testing backend functionality and server-client communication in one platform.</p>
+                </div>
+                <div 
+                    style={{
+                        width: "clamp(300px,40%,450px)",
                         height: "100%",
                     }}>
-                    <Canvas
-                        style={{
-                            width: "100%",
-                            height: "100%",
-                            cursor:"grabbing"
+                    <Swiper
+                        spaceBetween={30}
+                        centeredSlides={true}
+                        autoplay={{
+                            delay: 2500,
+                            disableOnInteraction: false,
                         }}
+                        pagination={{
+                            clickable: true,
+                        }}
+                        navigation={true}
+                        modules={[Autoplay, Pagination, Navigation]}
+                        className="mySwiper"
                     >
-                        <Suspense fallback={"loading..."}></Suspense>
-                        <OrbitControls enableZoom={false}/>
-                        <ambientLight intensity={1.5}/>
-                        <WorkStation/>
-                    </Canvas>
+                        {images.nodeEnv.map((img,index)=>{
+                            return (
+                                <SwiperSlide key={index} className="d-flex flex-column justify-content-center align-items-center">
+                                    <img src={img} alt="Frontend" style={{"width":"300px","height":"300px",mixBlendMode:"color-burn",aspectRatio:1/1,objectFit:"cover"}}/>
+                                </SwiperSlide>
+                            )
+                        })}
+                    </Swiper>
+                </div>
+            </section>
+            <section
+                className="w-100 d-flex flex-row justify-content-center align-items-center flex-wrap"
+                style={{
+                    minHeight:"100vh",
+                    backdropFilter:"blur(10px)",
+                }}
+            >
+                <div 
+                    className="d-flex flex-column justify-content-center align-items-center p-4 home" 
+                    style={{
+                        width: "clamp(300px,40%,450px)",
+                    }}>
+                    <h2>Static Site Generators: Next.js, Nuxt.js, and Gatsby</h2>
+                    <p>The platform supports static site generators like Next.js, Nuxt.js, and Gatsby, which allow developers to build fast, SEO-friendly web applications. Whether it’s server-side rendering with Next.js, Vue-based static generation with Nuxt.js, or React-driven Gatsby sites, CodeSandbox offers tools to build and preview static sites efficiently.</p>
+                </div>
+                <div 
+                    style={{
+                        width: "clamp(300px,40%,450px)",
+                        height: "100%",
+                    }}>
+                    <Swiper
+                        spaceBetween={30}
+                        centeredSlides={true}
+                        autoplay={{
+                            delay: 2500,
+                            disableOnInteraction: false,
+                        }}
+                        pagination={{
+                            clickable: true,
+                        }}
+                        navigation={true}
+                        modules={[Autoplay, Pagination, Navigation]}
+                        className="mySwiper"
+                    >
+                        {images.ssg.map((img,index)=>{
+                            return (
+                                <SwiperSlide key={index} className="d-flex flex-column justify-content-center align-items-center">
+                                    <img src={img} alt="Frontend" style={{"width":"300px","height":"300px",mixBlendMode:"color-burn",aspectRatio:1/1,objectFit:"cover"}}/>
+                                </SwiperSlide>
+                            )
+                        })}
+                    </Swiper>
+                </div>
+            </section>
+            <section
+                className="w-100 d-flex flex-row justify-content-center align-items-center flex-wrap"
+                style={{
+                    minHeight:"100vh",
+                    backdropFilter:"blur(10px)",
+                }}
+            >
+                <div 
+                    className="d-flex flex-column justify-content-center align-items-center p-4 home" 
+                    style={{
+                        width: "clamp(300px,40%,450px)",
+                    }}>
+                    <h2>Bundlers: Vite, Webpack, and Parcel</h2>
+                    <p>The platform provides environments with built-in support for modern bundlers such as Vite, Webpack, and Parcel. These bundlers help developers manage dependencies and compile code seamlessly, optimizing project builds for both development and production phases.</p>
+                </div>
+                <div 
+                    style={{
+                        width: "clamp(300px,40%,450px)",
+                        height: "100%",
+                    }}>
+                        <Swiper
+                        spaceBetween={30}
+                        centeredSlides={true}
+                        autoplay={{
+                            delay: 2500,
+                            disableOnInteraction: false,
+                        }}
+                        pagination={{
+                            clickable: true,
+                        }}
+                        navigation={true}
+                        modules={[Autoplay, Pagination, Navigation]}
+                        className="mySwiper"
+                    >
+                        {images.bundlers.map((img,index)=>{
+                            return (
+                                <SwiperSlide key={index} className="d-flex flex-column justify-content-center align-items-center">
+                                    <img src={img} alt="Frontend" style={{"width":"300px","height":"300px",mixBlendMode:"color-burn",aspectRatio:1/1,objectFit:"cover"}}/>
+                                </SwiperSlide>
+                            )
+                        })}
+                    </Swiper>
+                </div>
+            </section>
+            <section
+                className="w-100 d-flex flex-row justify-content-center align-items-center flex-wrap"
+                style={{
+                    minHeight:"100vh",
+                    backdropFilter:"blur(10px)",
+                }}
+            >
+                <div 
+                    className="d-flex flex-column justify-content-center align-items-center p-4 home" 
+                    style={{
+                        width: "clamp(300px,40%,450px)",
+                    }}>
+                    <h2>CSS Frameworks: TailwindCSS, Bootstrap, and Bulma</h2>
+                    <p>Frontend developers can enhance their projects with pre-integrated CSS frameworks such as TailwindCSS, Bootstrap, and Bulma. These frameworks simplify styling and UI component management, enabling developers to create visually appealing interfaces with minimal effort.</p>
+                </div>
+                <div 
+                    style={{
+                        width: "clamp(300px,40%,450px)",
+                        height: "100%",
+                    }}>
+                        <Swiper
+                        spaceBetween={30}
+                        centeredSlides={true}
+                        autoplay={{
+                            delay: 2500,
+                            disableOnInteraction: false,
+                        }}
+                        pagination={{
+                            clickable: true,
+                        }}
+                        navigation={true}
+                        modules={[Autoplay, Pagination, Navigation]}
+                        className="mySwiper"
+                    >
+                        {images.styling.map((img,index)=>{
+                            return (
+                                <SwiperSlide key={index} className="d-flex flex-column justify-content-center align-items-center">
+                                    <img src={img} alt="Frontend" style={{"width":"300px","height":"300px",mixBlendMode:"color-burn",aspectRatio:1/1,objectFit:"cover"}}/>
+                                </SwiperSlide>
+                            )
+                        })}
+                    </Swiper>
+                </div>
+            </section>
+            <section
+                className="w-100 d-flex flex-row justify-content-center align-items-center flex-wrap"
+                style={{
+                    minHeight:"100vh",
+                    backdropFilter:"blur(10px)",
+                }}
+            >
+                <div 
+                    className="d-flex flex-column justify-content-center align-items-center p-4 home" 
+                    style={{
+                        width: "clamp(300px,40%,450px)",
+                    }}>
+                    <h2>Package Management and Dependencies</h2>
+                    <p>IDEasy offers robust package management, allowing developers to import and configure dependencies from npm within their projects. This flexibility means you can easily extend your projects by adding libraries and tools as required.</p>
+                </div>
+                <div 
+                    style={{
+                        width: "clamp(300px,40%,450px)",
+                        height: "100%",
+                    }}>
+                    <Swiper 
+                        spaceBetween={30}
+                        centeredSlides={true}
+                        autoplay={{
+                            delay: 2500,
+                            disableOnInteraction: false,
+                        }}
+                        pagination={{
+                            clickable: true,
+                        }}
+                        navigation={true}
+                        modules={[Autoplay, Pagination, Navigation]}
+                        className="mySwiper">
+                            {images.package.map((img,index)=>{
+                                return (
+                                    <SwiperSlide key={index} className="d-flex flex-column justify-content-center align-items-center">
+                                        <img src={img} alt="Frontend" style={{"width":"300px","height":"300px",mixBlendMode:"color-burn",aspectRatio:1/1,objectFit:"cover"}}/>
+                                    </SwiperSlide>
+                                )
+                            })}
+                        </Swiper>
+                </div>
+            </section>
+            <section
+                className="w-100 d-flex flex-row justify-content-center align-items-center flex-wrap"
+                style={{
+                    minHeight:"100vh",
+                    backdropFilter:"blur(10px)",
+                }}
+            >
+                <div 
+                    className="d-flex flex-column justify-content-center align-items-center p-4 home" 
+                    style={{
+                        width: "clamp(300px,40%,450px)",
+                    }}>
+                    <h2>Console and Debugging Tools</h2>
+                    <p>Sandpack features a console that captures logs, errors, and custom messages, making it easy to debug and monitor code execution in real-time. Developers can also execute terminal-like commands to test scripts and manage project workflows within the browser.</p>
+                </div>
+                <div 
+                    style={{
+                        width: "clamp(300px,40%,450px)",
+                        height: "100%",
+                    }}>
+                    <Swiper
+                        spaceBetween={30}
+                        centeredSlides={true}
+                        autoplay={{
+                            delay: 2500,
+                            disableOnInteraction: false,
+                        }}
+                        pagination={{
+                            clickable: true,
+                        }}
+                        navigation={true}
+                        modules={[Autoplay, Pagination, Navigation]}
+                        className="mySwiper"
+                    >
+                        {images.debug.map((img,index)=>{
+                            return (
+                                <SwiperSlide key={index} className="d-flex flex-column justify-content-center align-items-center">
+                                    <img src={img} alt="Frontend" style={{"width":"300px","height":"300px",mixBlendMode:"color-burn",aspectRatio:1/1,objectFit:"cover"}}/>
+                                </SwiperSlide>
+                            )
+                        })}
+                    </Swiper>
+                </div>
+            </section>
+            <section
+                className="w-100 d-flex flex-row justify-content-center align-items-center flex-wrap"
+                style={{
+                    minHeight:"100vh",
+                    backdropFilter:"blur(10px)",
+                }}
+            >
+                <div 
+                    className="d-flex flex-column justify-content-center align-items-center p-4 home" 
+                    style={{
+                        width: "clamp(300px,40%,450px)",
+                    }}>
+                    <h2>
+                        Python and Ruby
+                    </h2>
+                    <p>
+                    Although primarily JavaScript-centric, CodeSandbox also provides containerized support for other languages like Python and Ruby. This capability broadens its applicability beyond frontend and full-stack development, allowing developers to experiment with backend technologies, scripting, and web services in a familiar environment.
+                    </p>
+                </div>
+                <div
+                    style={{
+                        width: "clamp(300px,40%,450px)",
+                        height: "100%",
+                    }}>
+                    <Swiper
+                        spaceBetween={30}
+                        centeredSlides={true}
+                        autoplay={{
+                            delay: 2500,
+                            disableOnInteraction: false,
+                        }}
+                        pagination={{
+                            clickable: true,
+                        }}
+                        navigation={true}
+                        modules={[Autoplay, Pagination, Navigation]}
+                        className="mySwiper"
+                    >
+                        {images.others.map((img,index)=>{
+                            return (
+                                <SwiperSlide key={index} className="d-flex flex-column justify-content-center align-items-center">
+                                    <img src={img} alt="Frontend" style={{"width":"300px","height":"300px",mixBlendMode:"color-burn",aspectRatio:1/1,objectFit:"cover"}}/>
+                                </SwiperSlide>
+                            )
+                        })}
+                    </Swiper>
+                </div>
+            </section>
+            <section
+                className="w-100 d-flex flex-row justify-content-center align-items-center flex-wrap"
+                style={{
+                    minHeight:"100vh",
+                    backdropFilter:"blur(10px)",
+                }}
+            >
+                <div 
+                    className="d-flex flex-column justify-content-center align-items-center p-4 home" 
+                    style={{
+                        width: "clamp(300px,40%,450px)",
+                    }}>
+                    <h2>
+                        Markdown and MDX Support
+                    </h2>
+                    <p>
+                        This supports Markdown and MDX, enabling developers to build content-focused projects with ease. This is particularly useful for documentation, blogs, or technical articles that combine code snippets with rich text. MDX’s integration with React components allows dynamic, interactive content creation.
+                    </p>
+                </div>
+                <div
+                    style={{
+                        width: "clamp(300px,40%,450px)",
+                        height: "100%",
+                    }}>
+                        <Swiper
+                        spaceBetween={30}
+                        centeredSlides={true}
+                        autoplay={{
+                            delay: 2500,
+                            disableOnInteraction: false,
+                        }}
+                        pagination={{
+                            clickable: true,
+                        }}
+                        navigation={true}
+                        modules={[Autoplay, Pagination, Navigation]}
+                        className="mySwiper"
+                    >
+                        {images.md.map((img,index)=>{
+                            return (
+                                <SwiperSlide key={index} className="d-flex flex-column justify-content-center align-items-center">
+                                    <img src={img} alt="Frontend" style={{"width":"300px","height":"300px",mixBlendMode:"color-burn",aspectRatio:1/1,objectFit:"cover"}}/>
+                                </SwiperSlide>
+                            )
+                        })}
+                    </Swiper>
                 </div>
             </section>
         </main>

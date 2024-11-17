@@ -14,9 +14,11 @@ export default async function fetchData(url,method,body,setIsLoading) {
         let request = await fetch(url,{
             method:method,
             headers:{
-                'Content-Type':'application/json'
+                'Content-Type':'application/json',
+                "Set-Cookie":`auth_token=${document.cookie}`
             },
-            body:requestBody
+            body:requestBody,
+            credentials:"include"
         })
         let response = await request.json();
         setIsLoading(true);
